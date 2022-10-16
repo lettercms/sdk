@@ -1,0 +1,31 @@
+{
+  "name": "@lettercms/next",
+  "version": "0.0.1",
+  "private": false,
+  "main": "index.js",
+  "engines": {
+    "yarn": ">= 1.22",
+    "node": ">=16"
+  },
+  "license": "Apache-2.0",
+  "types": "types/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lettercms/sdk.git"
+  },
+  "peerDependencies": {
+    "react": "^16|^17|^18",
+    "react-dom": "^16|^17|^18"
+  },
+  "devDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "scripts": {
+    "build": "tsc --outDir ./cjs -m commonjs -t ES2017",
+    "deploy:canary": "node ../../scripts/release-canary && npm publish --tag canary",
+    "build-dist": "webpack",
+    "build-cjs": "rimraf ./cjs && tsc --outDir ./cjs -m commonjs -t ES2017",
+    "build-esm": "rimraf ./esm && tsc --outDir ./esm -m ESNext -t ESNEXT"
+  }
+}
