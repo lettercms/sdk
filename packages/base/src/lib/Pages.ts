@@ -1,5 +1,5 @@
-import { LetterProperties } from "../index";
-import { PostRequestOptions, ListResponseMessage } from "../types";
+import type LetterProperties from '../index';
+import {PostRequestOptions, ListResponseMessage} from '../types';
 
 interface Page {
   subdomain?: string;
@@ -30,34 +30,34 @@ class Pages {
   async all(
     data?: PostRequestOptions
   ): Promise<ListResponseMessage<PageResponse>> {
-    return this.parent.createRequest("/page", data);
+    return this.parent.createRequest('/page', data);
   }
   async single(url: string, data?: PostRequestOptions): Promise<PageResponse> {
     return this.parent.createRequest(`/page/${url}`, data);
   }
   async create(data?: Page): Promise<void> {
-    return this.parent.createRequest("/page", "POST", data);
+    return this.parent.createRequest('/page', 'POST', data);
   }
   async publish(url: string, data?: Page): Promise<void> {
-    return this.parent.createRequest(`/page/${url}`, "PATCH", {
+    return this.parent.createRequest(`/page/${url}`, 'PATCH', {
       ...data,
-      action: "publish",
+      action: 'publish',
     });
   }
   async update(url: string, data?: Page): Promise<void> {
-    return this.parent.createRequest(`/page/${url}`, "PATCH", {
+    return this.parent.createRequest(`/page/${url}`, 'PATCH', {
       ...data,
-      action: "update",
+      action: 'update',
     });
   }
   async draft(url: string, data?: Page): Promise<void> {
-    return this.parent.createRequest(`/page/${url}`, "PATCH", {
+    return this.parent.createRequest(`/page/${url}`, 'PATCH', {
       ...data,
-      action: "draft",
+      action: 'draft',
     });
   }
   async delete(url: string): Promise<void> {
-    return this.parent.createRequest(`/page/${url}`, "DELETE");
+    return this.parent.createRequest(`/page/${url}`, 'DELETE');
   }
 }
 

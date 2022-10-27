@@ -1,22 +1,22 @@
-import Base from "./Base";
-import { LetterProperties } from "../../index";
+import Base from './Base';
+import type LetterProperties from '../../index';
 import {
   FacebookFeed,
   FacebookPost,
   InstagramFeed,
   InstagramPost,
-} from "./socialResponses";
+} from './socialResponses';
 
 class Facebook extends Base<FacebookFeed, FacebookPost> {
   constructor(parent: LetterProperties) {
-    super("facebook", parent);
+    super('facebook', parent);
   }
 }
 
 class Instagram extends Base<InstagramFeed, InstagramPost> {
   constructor(parent: LetterProperties) {
-    super("instagram", parent);
+    super('instagram', parent);
   }
 }
 
-export { Facebook, Instagram };
+export {Facebook, Instagram};

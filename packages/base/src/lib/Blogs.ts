@@ -1,5 +1,5 @@
-import { LetterProperties } from "../index";
-import { RequestOptions, ListResponseMessage } from "../types";
+import type LetterProperties from '../index';
+import {RequestOptions} from '../types';
 
 interface Category {
   name: string;
@@ -9,7 +9,7 @@ interface Category {
 interface Blog {
   subdomain?: string;
   customDomain?: string;
-  plan?: "beta" | "free" | "pro";
+  plan?: 'beta' | 'free' | 'pro';
   isVisible?: boolean;
   hasCustomRobots?: boolean;
   robots?: string;
@@ -23,13 +23,42 @@ interface Blog {
   thumbnail?: string;
 }
 
-interface CategoriesResponse {
-  _id: string;
-  categories?: Array<Category>;
-}
-
 interface BlogResponse extends Blog {
   _id: string;
+}
+interface Usage {
+  used: number;
+  available: number;
+}
+
+interface UsageResponse {
+  posts: {
+    versioning: Usage;
+  };
+  files: {
+    storage: Usage;
+    upload: Usage;
+  };
+  pages: Usage;
+  social: {
+    schedule: Usage;
+    instagramPosts: Usage;
+    accounts: number;
+  };
+  accounts: {
+    collaborators: number;
+    single: number;
+  };
+  ab: {
+    tests: Usage;
+  };
+  stats: {
+    realtimeEnabled: number;
+    reports: number;
+  };
+  emails: {
+    campaigns: number;
+  };
 }
 
 class Blogs {
@@ -38,22 +67,14 @@ class Blogs {
   constructor(parent: LetterProperties) {
     this.parent = parent;
   }
-  async single(data?: RequestOptions): Promise<BlogResponse> {
-    return this.parent.createRequest("/blog", data);
+  async data(data?: RequestOptions): Promise<BlogResponse> {
+    return this.parent.createRequest('/blog', data);
   }
   async update(data: Blog): Promise<void> {
-    return this.parent.createRequest("/blog", "PATCH", data);
+    return this.parent.createRequest('/blog', 'PATCH', data);
   }
-  async categories(): Promise<CategoriesResponse> {
-    return this.single(["categories"]);
-  }
-  async addCategory(data: Category): Promise<void> {
-    return this.parent.createRequest("/blog/category", "POST", data);
-  }
-  async deleteCategory(name: string): Promise<void> {
-    return this.parent.createRequest("/blog/category", "DELETE", {
-      name,
-    });
+  usage(): Promise<UsageResponse> {
+    return this.parent.createRequest('/usage');
   }
 }
 

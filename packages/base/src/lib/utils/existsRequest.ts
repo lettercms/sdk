@@ -1,21 +1,21 @@
-import toQuery from "./objectToQueryString";
-import fetch from "isomorphic-fetch";
-
-const stagingEndpoint = "https://lettercms-api-staging.herokuapp.com";
+import toQuery from './objectToQueryString';
 
 export default async function (
   path: string,
   conditions: object
 ): Promise<boolean> {
   const query = toQuery(conditions);
-  const host =
-    process.env.NODE_ENV !== "production"
-      ? `http://localhost:3009/api/${path}`
-      : `${stagingEndpoint}/api/${path}`; //`https://davidsdevel-${path}.lettercms.vercel.app`;
+  const host = process.env.LETTERCMS_ENDPOINT;
 
-  const res = await fetch(`${host}/exists${query}`);
+  try {
+    //TODO: Add isomorphic implementation
+    // eslint-disable-next-line
+    //@ts-ignore
+    const res = await fetch(`${host}/${path}/exists${query}`);
+    if (res.status === 404) return Promise.resolve(false);
 
-  if (res.status === 404) return Promise.resolve(false);
-
-  return Promise.resolve(true);
+    return Promise.resolve(true);
+  } catch (err) {
+    return Promise.resolve(false);
+  }
 }

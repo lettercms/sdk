@@ -1,6 +1,3 @@
-interface KeyValue {
-  [key: string]: any;
-}
 interface FacebookAuthResponse {
   accessToken: string;
   expiresIn: string;
@@ -8,24 +5,16 @@ interface FacebookAuthResponse {
   signedRequest: string;
   userID: string;
 }
-interface FacebookSDK {
-  login(cb: Function, scope?: FacebookScope): void;
-  getLoginStatus(cb: Function): void;
-  api(path: string, cb: Function): void;
-}
 
 export interface PagesResponse {
-  data: Array<KeyValue>;
+  data: Array<Record<string, string | number>>;
 }
 export interface FacebookResponse {
-  status: "connected" | "not_authorized" | "unknown";
+  status: 'connected' | 'not_authorized' | 'unknown';
   authResponse: FacebookAuthResponse;
 }
 export interface FacebookScope {
   scope: string;
-}
-export interface NewWindow extends Window {
-  FB?: FacebookSDK;
 }
 
 interface FacebookImage {

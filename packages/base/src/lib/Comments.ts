@@ -1,5 +1,5 @@
-import { LetterProperties } from "../index";
-import { RequestOptions, ListResponseMessage } from "../types";
+import type LetterProperties from '../index';
+import {RequestOptions, ListResponseMessage} from '../types';
 
 class Comments {
   parent: LetterProperties;
@@ -10,14 +10,21 @@ class Comments {
   async all(
     postID: string,
     options?: RequestOptions
-  ): Promise<ListResponseMessage<any>> {
+  ): Promise<ListResponseMessage<Record<string, string>>> {
     return this.parent.createRequest(`/comment/${postID}`, options);
   }
-  async post(id: string, options?: RequestOptions): Promise<any> {
+  async post(
+    id: string,
+    options?: RequestOptions
+  ): Promise<Record<string, string>> {
     return this.parent.createRequest(`/comment/${id}`, options);
   }
-  async send(comment: string, postID: string, userID: string): Promise<any> {
-    return this.parent.createRequest(`/comment`, "POST", {
+  async send(
+    comment: string,
+    postID: string,
+    userID: string
+  ): Promise<Record<string, string>> {
+    return this.parent.createRequest('/comment', 'POST', {
       comment,
       postID,
       userID,
@@ -28,15 +35,15 @@ class Comments {
     replyTo: string,
     postID: string,
     userID: string
-  ): Promise<any> {
-    return this.parent.createRequest(`/comment/${replyTo}`, "POST", {
+  ): Promise<Record<string, string>> {
+    return this.parent.createRequest(`/comment/${replyTo}`, 'POST', {
       comment,
       postID,
       userID,
     });
   }
-  async delete(id: string): Promise<any> {
-    return this.parent.createRequest(`/comment/${id}`, "DELETE");
+  async delete(id: string): Promise<Record<string, string>> {
+    return this.parent.createRequest(`/comment/${id}`, 'DELETE');
   }
 }
 

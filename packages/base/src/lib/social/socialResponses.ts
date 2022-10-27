@@ -24,15 +24,15 @@ export interface FacebookPost {
   full_picture?: string;
   icon?: string;
   instagram_eligibility?:
-    | "ineligible_caption_mentions_not_allowed"
-    | "ineligible_caption_too_long"
-    | "ineligible_media_aspect_ratio"
-    | "ineligible_media_dimension"
-    | "ineligible_media_square_aspect_ratio"
-    | "ineligible_media_square_dimension"
-    | "ineligible_post_type"
-    | "ineligible_unknown_error"
-    | "ineligible_video_length";
+    | 'ineligible_caption_mentions_not_allowed'
+    | 'ineligible_caption_too_long'
+    | 'ineligible_media_aspect_ratio'
+    | 'ineligible_media_dimension'
+    | 'ineligible_media_square_aspect_ratio'
+    | 'ineligible_media_square_dimension'
+    | 'ineligible_post_type'
+    | 'ineligible_unknown_error'
+    | 'ineligible_video_length';
   is_eligible_for_promotion?: boolean;
   is_expired?: boolean;
   is_hidden?: boolean;
@@ -51,23 +51,23 @@ export interface FacebookPost {
   sheduled_publish_time?: number;
   shares?: object;
   status_type?:
-    | "added_photos"
-    | "added_video"
-    | "app_created_story"
-    | "approved_friend"
-    | "created_event"
-    | "created_group"
-    | "created_note"
-    | "mobile_status_update"
-    | "published_story"
-    | "shared_story"
-    | "tagged_in_photo"
-    | "wall_post";
+    | 'added_photos'
+    | 'added_video'
+    | 'app_created_story'
+    | 'approved_friend'
+    | 'created_event'
+    | 'created_group'
+    | 'created_note'
+    | 'mobile_status_update'
+    | 'published_story'
+    | 'shared_story'
+    | 'tagged_in_photo'
+    | 'wall_post';
   story?: string;
   story_tags?: Array<string>;
   subscribed?: boolean;
   targeting?: object;
-  type?: "link" | "offer" | "photo" | "status" | "video";
+  type?: 'link' | 'offer' | 'photo' | 'status' | 'video';
   updated_time: number;
   video_buying_eligibility: Array<string>;
   with_tag: object;

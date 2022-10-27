@@ -1,14 +1,14 @@
-import { LetterProperties } from "../index";
-import { Instagram, Facebook } from "./social/index";
+import type LetterProperties from '../index';
+import {Instagram, Facebook} from './social/index';
 
 export interface PublishOptions {
-  message: string
-  images: Array<string>
+  message: string;
+  images: Array<string>;
 }
 
 declare interface AccountsOptions {
-  feeds: string
-  limit: number
+  feeds: string;
+  limit: number;
 }
 
 class Social {
@@ -20,7 +20,10 @@ class Social {
     this.facebook = new Facebook(parent);
     this.instagram = new Instagram(parent);
   }
-  publish(message: string, options: PublishOptions): Promise<Array<any>> {
+  publish(
+    message: string,
+    options: PublishOptions
+  ): Promise<Array<Record<string, string>>> {
     const promises = [
       this.facebook.publish(message, options),
       this.instagram.publish(message, options),
@@ -28,8 +31,8 @@ class Social {
 
     return Promise.all(promises);
   }
-  accounts(options: AccountsOptions): Promise<Array<any>> {
-    return this.parent.createRequest("/social/account", options);
+  accounts(options: AccountsOptions): Promise<Array<Record<string, string>>> {
+    return this.parent.createRequest('/social/account', options);
   }
 }
 

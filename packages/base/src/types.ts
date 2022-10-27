@@ -31,19 +31,9 @@ interface PostRequest extends Request {
   status?: string;
 }
 interface AccountRequest extends Request {
-  role?: "admin" | "collaborator" | "single";
-}
-
-export interface LoginResponse {
-  accessToken: string;
-  id: string;
+  role?: 'admin' | 'collaborator' | 'single';
 }
 
 export type RequestOptions = Array<string> | Request;
 export type PostRequestOptions = Array<string> | PostRequest;
 export type AccountRequestOptions = Array<string> | AccountRequest;
-
-export type AccessToken = string | undefined;
-export type Subdomain = string | undefined;
-
-export type CMS = "wordpress" | "blogger";
