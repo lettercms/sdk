@@ -1,7 +1,7 @@
 import type LetterProperties from '../../index';
 import {PublishOptions} from '../Social';
 
-class Base<feed /*, post*/> {
+class Base<feed, post> {
   url: string;
   parent: LetterProperties;
   constructor(url: string, parent: LetterProperties) {

@@ -1,5 +1,5 @@
 import toQuery from '@lettercms/base/dist/lib/utils/objectToQueryString';
-import {request} from 'https';
+import axios from 'axios';
 import {
   RequestOptions as LetterCMSOptions,
   PostRequestOptions,
@@ -16,10 +16,10 @@ interface ToQuery {
 type Headers = Record<string, string | number>;
 
 interface RequestOptions {
-  path: string;
+  url: string;
   headers: Headers;
   method: string;
-  hostname: string;
+  data?: Request;
 }
 
 async function createRequest(
@@ -40,7 +40,6 @@ async function createRequest(
   const isGet = methodParam === 'GET';
 
   let query = '';
-  let body: unknown = null;
 
   const headers: Headers = {
     'x-lettercms-id': this.clientID,
@@ -70,43 +69,22 @@ async function createRequest(
   if (!isGet) {
     headers['Content-Type'] = 'application/json';
 
-    if (data) {
-      body = JSON.stringify(data);
-
-      headers['Content-Length'] = Buffer.byteLength(body as string);
-    }
+    if (data)
+      headers['Content-Length'] = Buffer.byteLength(
+        JSON.stringify(data) as string
+      );
   }
 
   const options: RequestOptions = {
-    hostname: process.env.LETTERCMS_ENDPOINT as string,
-    path: path + query,
-    method: method as string,
+    url: `${this.endpoint}/api${path}${query}`,
+    method: methodParam as string,
     headers,
+    data,
   };
 
-  return new Promise((resolve, reject) => {
-    const req = request(options, res => {
-      let chunks = '';
+  const {data: dataRes} = await axios(options);
 
-      res.setEncoding('utf8');
-
-      res.on('data', (chunk: Buffer) => {
-        chunks += chunk.toString();
-      });
-
-      res.on('end', () => resolve(JSON.parse(chunks)));
-
-      res.on('error', reject);
-    });
-
-    req.on('error', reject);
-
-    if (body) {
-      // Write data to request body
-      req.write(body);
-      req.end();
-    }
-  });
+  return dataRes as Record<string, unknown>;
 }
 
 export default createRequest;

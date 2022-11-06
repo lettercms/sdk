@@ -20,10 +20,7 @@ class Social {
     this.facebook = new Facebook(parent);
     this.instagram = new Instagram(parent);
   }
-  publish(
-    message: string,
-    options: PublishOptions
-  ): Promise<Array<Record<string, string>>> {
+  publish(message: string, options: PublishOptions): Promise<Array<string>> {
     const promises = [
       this.facebook.publish(message, options),
       this.instagram.publish(message, options),

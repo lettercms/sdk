@@ -2,8 +2,8 @@ import Base from '@lettercms/base';
 import createRequest from './lib/createRequest';
 
 declare interface InitOptions {
-  clientID: string;
-  clientSecret: string;
+  id: string;
+  secret: string;
 }
 
 declare interface AccessTokenResponse {
@@ -13,7 +13,7 @@ declare interface AccessTokenResponse {
 }
 
 declare interface AccessTokenOptions {
-  maxAge?: string | number;
+  expiresIn?: string | number;
 }
 
 class NodeSDK extends Base {
@@ -28,13 +28,13 @@ class NodeSDK extends Base {
     this.createRequest = createRequest.bind(this);
   }
   init(opts: InitOptions): void {
-    this.clientSecret = opts.clientSecret;
-    this.clientID = opts.clientID;
+    this.clientSecret = opts.secret;
+    this.clientID = opts.id;
   }
   getAccessToken(
-    opts: AccessTokenOptions = {maxAge: 3600}
+    opts: AccessTokenOptions = {expiresIn: 3600}
   ): Promise<AccessTokenResponse> {
-    return this.createRequest('/auth', 'POST', opts);
+    return this.createRequest('/auth/exchangeToken', 'POST', opts);
   }
 }
 
